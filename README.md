@@ -1,6 +1,7 @@
 # Project Setup Environment Softwares
 1. Tomcat 9.x
-2. MySQL
+2. MariaDB-10.1.37
+3. Java Development Kit-1.8 / Java Runtime Environment-1.8
 
 # Project Deployment
 1. Copy the build *.war file into the webappr directory inside tomcat.
