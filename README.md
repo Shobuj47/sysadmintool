@@ -4,6 +4,8 @@
 3. Java Development Kit-1.8 / Java Runtime Environment-1.8
 
 # Project Deployment
-1. Copy the build *.war file into the webappr directory inside tomcat.
-2. Start the tomcat by executing "startup.sh" located into the "bin" directory inside tomcat.
+1. Copy the build *.war file from the "target" directory into the "webapp" directory inside tomcat home directory.
+i.e. "app_dir/target/mvc.war" to "Tomcat_Home/webapp/"
+2. Start the tomcat by executing "startup.sh" located into the "bin" directory inside tomcat home directory.
+i.e. "Tomcat_Home/bin/startup.sh"
 3. Browse the project into any browser. url ex. "localhost:8080/mvc/"
