@@ -1,5 +1,6 @@
 package com.spring.mvc.domain;
 
+import java.util.Date;
 
 public class User {
 	private int    componentId;
@@ -8,9 +9,9 @@ public class User {
 	private String lname;
 	private String email;
 	private String password;
-	private String status;
-	private String createdate;
-	private String updatedate;
+	private Byte status;
+	private Date createdate;
+	private Date updatedate;
 	
 	
 	public int getComponentId() {
@@ -49,22 +50,22 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getStatus() {
+	public Byte getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(Byte status) {
 		this.status = status;
 	}
-	public String getCreatedate() {
+	public Date getCreatedate() {
 		return createdate;
 	}
-	public void setCreatedate(String createdate) {
+	public void setCreatedate(Date createdate) {
 		this.createdate = createdate;
 	}
-	public String getUpdatedate() {
+	public Date getUpdatedate() {
 		return updatedate;
 	}
-	public void setUpdatedate(String updatedate) {
+	public void setUpdatedate(Date updatedate) {
 		this.updatedate = updatedate;
 	}
 

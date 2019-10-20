@@ -1,10 +1,12 @@
 package com.spring.mvc.domain;
 
+import java.util.Date;
+
 public class FunctionCodes {
 	private int componentId;
 	private String displayname;
 	private String functioncode;
-	private String createdate;
+	private Date createdate;
 	public int getComponentId() {
 		return componentId;
 	}
@@ -23,10 +25,10 @@ public class FunctionCodes {
 	public void setFunctioncode(String functioncode) {
 		this.functioncode = functioncode;
 	}
-	public String getCreatedate() {
+	public Date getCreatedate() {
 		return createdate;
 	}
-	public void setCreatedate(String createdate) {
+	public void setCreatedate(Date createdate) {
 		this.createdate = createdate;
 	}
 
