@@ -7,4 +7,5 @@ import com.spring.mvc.domain.UserRole;
 
 public interface UserRoleService {
 	public List<UserRole> getUserRole(User user);
+	public List<Integer> getUserRoleIdList(int id);
 }

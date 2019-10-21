@@ -2,9 +2,13 @@ package com.spring.mvc.dao.rolefunctioncode;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.spring.mvc.dao.BaseDAO;
 import com.spring.mvc.domain.RoleFunctionCodes;
+import com.spring.mvc.rowmapper.RoleFunctionCodeRowMapper;
 
+@Repository
 public class RoleFunctionCodeDAOImpl extends BaseDAO implements RoleFunctionCodeDAO{
 
 	@Override
@@ -27,14 +31,15 @@ public class RoleFunctionCodeDAOImpl extends BaseDAO implements RoleFunctionCode
 
 	@Override
 	public List<RoleFunctionCodes> findByProperty(String searchobj, Object searchparam) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT 	componentId, roleid, funcid, createdate, createdby, updatedby FROM sysadmintool.rolefunctioncodes "
+				+ "WHERE " + searchobj + " =?";
+		return getJdbcTemplate().query(sql, new RoleFunctionCodeRowMapper(), searchparam);
 	}
 
 	@Override
 	public List<RoleFunctionCodes> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT 	componentId, roleid, funcid, createdate, createdby, updatedby FROM sysadmintool.rolefunctioncodes ";
+		return getJdbcTemplate().query(sql, new RoleFunctionCodeRowMapper());
 	}
 
 }

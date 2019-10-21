@@ -1,5 +1,8 @@
 package com.spring.mvc.dao.userrole;
 
+import java.sql.Array;
+import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,10 +11,13 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import com.spring.mvc.dao.BaseDAO;
 import com.spring.mvc.domain.UserRole;
+import com.spring.mvc.rowmapper.UserRoleRowMapper;
 
+@Repository
 public class UserRoleDAOImpl extends BaseDAO implements UserRoleDAO {
 
 	@Override
@@ -47,14 +53,28 @@ public class UserRoleDAOImpl extends BaseDAO implements UserRoleDAO {
 
 	@Override
 	public List<UserRole> findByProperty(String searchobj, Object searchparam) {
-		String sql ="";
-		return null;
+		String sql ="SELECT DISTINCT roleid FROM sysadmintool.userrole WHERE " + searchobj + " = ?;";
+		return getJdbcTemplate().query(sql, new UserRoleRowMapper(), searchparam);
 	}
 
 	@Override
 	public List<UserRole> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT componentId, userid, roleid, status, createdate, updatedate FROM sysadmintool.userrole";
+		return getJdbcTemplate().query(sql, new UserRoleRowMapper());
 	}
+	
+	//Return a list of role id of associated user
+	public List<Integer> getUserRoleIdList(int userId){
+		String sql = "SELECT DISTINCT roleid FROM sysadmintool.userrole WHERE userid = "+ userId +" ";
+		Array temp = getJdbcTemplate().queryForObject(sql, Array.class);
+		try {
+			return Arrays.asList((Integer[]) temp.getArray());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 
 }

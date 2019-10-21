@@ -7,4 +7,5 @@ import com.spring.mvc.domain.Role;
 
 public interface RoleFunctionCodeService {
 	public List<FunctionCodes> getRoleFunctionCodes(Role role);
+	public List<String> getRoleFunctionCodeList(List<Integer> roleId);
 }

@@ -1,4 +1,6 @@
 <%@page import="javax.servlet.jsp.tagext.TagLibraryInfo"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,36 +10,36 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home</title>
         <%@taglib uri="http://www.springframework.org/tags" prefix="s" %>
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
     <s:url var="url_css" value="/resources/css/bootstrap.css"></s:url>
     <link href="${url_css}" rel="stylesheet" type="text/css" />
     <body>
-        <div class="wrapper fadeInDown">
-  <div id="formContent">
-    <!-- Tabs Titles -->
 
-    <!-- Icon -->
-    <div class="fadeIn first">
-      <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
-    </div>
 
     <!-- Login Form -->
-    <form action="/login" method="POST">
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-      <input type="submit" class="fadeIn fourth" value="Log In">
-    </form>
-
-    <!-- Remind Passowrd -->
-    <div id="formFooter">
-      <a class="underlineHover" href="#">Forgot Password?</a>
-    </div>
-
-  </div>
-</div>
+    <form:form method = "POST" action = "/HelloWeb/addStudent">
+         <table>
+            <tr>
+               <td><form:input path = "name" /></td>
+            </tr>
+            <tr>
+               <td><form:label path = "age">Age</form:label></td>
+               <td><form:input path = "age" /></td>
+            </tr>
+            <tr>
+               <td><form:label path = "id">id</form:label></td>
+               <td><form:input path = "id" /></td>
+            </tr>
+            <tr>
+               <td colspan = "2">
+                  <input type = "submit" value = "Submit"/>
+               </td>
+            </tr>
+         </table>  
+      </form:form>
+      
+      
+      
 
 <style>
 

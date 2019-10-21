@@ -15,12 +15,25 @@ import com.spring.mvc.domain.UserRole;
 public class UserRoleServiceImpl extends BaseDAO  implements UserRoleService{
 
 	@Autowired
-	UserRoleDAO usrroledao;
+	private UserRoleDAO usrroledao;
 	
 	@Override
 	public List<UserRole> getUserRole(User user) {
+		try {
 		List<UserRole> usrrolel = usrroledao.findByProperty("userid", user.getComponentId());
 		return usrrolel;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
+	
+	@Override
+	public List<Integer> getUserRoleIdList(int id){
+		
+		return null;
+	}
+	
+	
 
 }

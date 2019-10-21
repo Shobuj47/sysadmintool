@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.spring.mvc.command.common.FunctionCodesCommand;
 import com.spring.mvc.command.common.LoginCommand;
 import com.spring.mvc.dao.functioncode.FunctionCodeDAO;
 import com.spring.mvc.dao.role.RoleDAO;
@@ -36,26 +38,26 @@ public class LoginController {
 	UserRoleService usrrolesrv;
 	RoleFunctionCodeService rfcs;
 	List<RoleFunctionCodes> rfcl;
+	FunctionCodesCommand fcc;
+	User usr;
 	
 	
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public ModelAndView getlogin(HttpServletResponse response) throws IOException{
+	public ModelAndView getlogin(Model m) throws IOException{
+		 m.addAttribute("command", new LoginCommand());
 		return new ModelAndView("home");
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public ModelAndView login(@ModelAttribute("command") LoginCommand cmd, Model m, HttpSession sessio){
+	public ModelAndView login(@ModelAttribute("command") LoginCommand cmd, Model m, HttpSession session){
 		try {
 			User user = usrservice.Login(cmd.getLoginName(), cmd.getPassword());
-			List<UserRole> rolelist = usrrolesrv.getUserRole(user);
-			for (UserRole rl : rolelist) {
-				rfcl.add(rfcs.getRoleFunctionCodes(rl));
-			}
-			 
 			if(user == null) {
 				return new ModelAndView("home");
 			} else {
+				List<String> rolelist = getAuthorizedUrlList(user.getComponentId());
+				addUserInSession(user, rolelist, session);
 				return new ModelAndView("common/dashboard");
 			}
 		} catch (UserBlockedException e) {
@@ -73,27 +75,18 @@ public class LoginController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-    private void addUserInSession(User u, HttpSession session) {
+    private void addUserInSession(User u, List<String> rolelist, HttpSession session) {
         session.setAttribute("user", u);
         session.setAttribute("userId", u.getComponentId());
-        session.setAttribute("role", u.getRole());
+        session.setAttribute("permissions", rolelist);
     }
 	
 	
-	public Boolean urlAuthorization(String url) {
-		List<String> permittedurllist;
-		FunctionCodes fc;
-		for (RoleFunctionCodes rfc : rfcl) {
-			permittedurllist.add(rfc.getFuncid());
-		}
+	//Call this function one time while login
+	public List<String> getAuthorizedUrlList(int userId){
+		List<Integer> roleidlist = usrrolesrv.getUserRoleIdList(userId);
+		return rfcs.getRoleFunctionCodeList(roleidlist);
 	}
-	
 	
 	
 	

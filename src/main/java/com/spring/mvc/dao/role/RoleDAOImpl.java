@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.mvc.dao.BaseDAO;
 import com.spring.mvc.domain.Role;
+import com.spring.mvc.rowmapper.RoleRowMapper;
 
 @Repository
 public class RoleDAOImpl extends BaseDAO implements RoleDAO{
@@ -33,26 +34,31 @@ public class RoleDAOImpl extends BaseDAO implements RoleDAO{
 
 	@Override
 	public void update(Role role) {
-		// TODO Auto-generated method stub
-		
+		String sql = "UPDATE sysadmintool.role SET rolename = :rolename, displayname = :displayname, status = :status  WHERE componentId = :componentId ;";
+		Map m = new HashMap();
+        m.put("rolename", role.getRolename());
+        m.put("displayname", role.getDisplayname());
+        m.put("status", role.getStatus());
+		getNamedParameterJdbcTemplate().update(sql, m);
 	}
 
 	@Override
-	public void delete(Role role) {
-		// TODO Auto-generated method stub
+	public void delete(int roleId) {
+		String sql = "DELETE FROM sysadmintool.role WHERE componentId = ? ";
+		getJdbcTemplate().update(sql, roleId);
 		
 	}
 
 	@Override
 	public List<Role> findByProperty(String searchobj, Object searchparam) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT 	componentId, rolename, displayname, status FROM sysadmintool.role WHERE " + searchobj + " =?";
+		return getJdbcTemplate().query(sql, new RoleRowMapper(), searchparam);
 	}
 
 	@Override
 	public List<Role> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT 	componentId, rolename, displayname, status FROM sysadmintool.role";
+		return getJdbcTemplate().query(sql, new RoleRowMapper());
 	}
 
 }
