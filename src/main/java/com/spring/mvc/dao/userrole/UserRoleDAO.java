@@ -10,5 +10,5 @@ public interface UserRoleDAO {
 	public void delete(UserRole userrole);
 	public List<UserRole> findByProperty(String searchobj, Object searchparam);
 	public List<UserRole> findAll();
-	public List<Integer> getUserRoleIdList(int id);
+	public List<UserRole> getUserRoleIdList(int id);
 }

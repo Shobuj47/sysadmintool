@@ -35,35 +35,33 @@ public class LoginController {
 
 	@Autowired
 	UserService usrservice;
+	@Autowired
 	UserRoleService usrrolesrv;
+	@Autowired
 	RoleFunctionCodeService rfcs;
-	List<RoleFunctionCodes> rfcl;
-	FunctionCodesCommand fcc;
 	User usr;
-	
-	
-	
-	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public ModelAndView getlogin(Model m) throws IOException{
-		 m.addAttribute("command", new LoginCommand());
-		return new ModelAndView("home");
-	}
-	
+    
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public ModelAndView login(@ModelAttribute("command") LoginCommand cmd, Model m, HttpSession session){
+	public String login(@ModelAttribute("command") LoginCommand cmd, Model m, HttpSession session){
 		try {
+			System.out.println("Before getting User " + cmd.getLoginName() + " " + cmd.getPassword());
 			User user = usrservice.Login(cmd.getLoginName(), cmd.getPassword());
 			if(user == null) {
-				return new ModelAndView("home");
+				System.out.println("User is null");
+				return "home";
 			} else {
-				List<String> rolelist = getAuthorizedUrlList(user.getComponentId());
+				System.out.println("User Found! User Id " + user.getComponentId() + " Getting User RoleList");
+				List<UserRole> roleidlist = usrrolesrv.getUserRoleIdList(user.getComponentId());
+				System.out.println("Getting User FunctionCodeList");
+				List<String> rolelist = rfcs.getRoleFunctionCodeList(roleidlist);
+				System.out.println("Got FunctionCode List. Adding to session");
 				addUserInSession(user, rolelist, session);
-				return new ModelAndView("common/dashboard");
+				return "common/dashboard";
 			}
 		} catch (UserBlockedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return new ModelAndView("home");
+			return "home";
 		}
 	}
 	
@@ -80,14 +78,5 @@ public class LoginController {
         session.setAttribute("userId", u.getComponentId());
         session.setAttribute("permissions", rolelist);
     }
-	
-	
-	//Call this function one time while login
-	public List<String> getAuthorizedUrlList(int userId){
-		List<Integer> roleidlist = usrrolesrv.getUserRoleIdList(userId);
-		return rfcs.getRoleFunctionCodeList(roleidlist);
-	}
-	
-	
 	
 }

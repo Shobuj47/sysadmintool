@@ -64,16 +64,9 @@ public class UserRoleDAOImpl extends BaseDAO implements UserRoleDAO {
 	}
 	
 	//Return a list of role id of associated user
-	public List<Integer> getUserRoleIdList(int userId){
-		String sql = "SELECT DISTINCT roleid FROM sysadmintool.userrole WHERE userid = "+ userId +" ";
-		Array temp = getJdbcTemplate().queryForObject(sql, Array.class);
-		try {
-			return Arrays.asList((Integer[]) temp.getArray());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+	public List<UserRole> getUserRoleIdList(int userId){
+		String sql = "SELECT DISTINCT roleid FROM sysadmintool.userrole WHERE userid = ?";
+		return getJdbcTemplate().query(sql, new UserRoleRowMapper(), userId);
 	}
 	
 

@@ -13,13 +13,6 @@
 </head>
 <body> 
  
- <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span>User Profile</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
-    </ul>
-  </div>
-</nav> 
+
 
 <jsp:include page="rightnavbar.jsp"></jsp:include>

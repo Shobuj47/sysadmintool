@@ -3,6 +3,7 @@
 	<% response.sendRedirect("localhost/mvc/login"); %>
 </c:if>
 <c:if test="${sessionScope.userId != null} }">
+	User Found
 	<c:forEach var="item" items="${sessionScope.rolelist}">
 		<c:if test="${request.getContextPath() != item}">
 			No Match

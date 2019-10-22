@@ -1,5 +1,6 @@
 package com.spring.mvc.command.common;
 
+
 public class LoginCommand {
 	private String loginName;
     private String password;    
