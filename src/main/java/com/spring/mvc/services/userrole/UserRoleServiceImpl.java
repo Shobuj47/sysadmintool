@@ -40,5 +40,16 @@ public class UserRoleServiceImpl extends BaseDAO  implements UserRoleService{
 	}
 	
 	
+	public Boolean validateAccess(List<String> urllist, String accessurl) {
+		Boolean validation = false;
+		for (String url : urllist) {
+			if(url.equalsIgnoreCase(accessurl)) {
+				validation = true;
+				break;
+			}
+		}
+		return validation;
+	}
+	
 
 }

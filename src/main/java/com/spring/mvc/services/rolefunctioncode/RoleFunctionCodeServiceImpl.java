@@ -1,18 +1,13 @@
 package com.spring.mvc.services.rolefunctioncode;
 
-import java.sql.ResultSet;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.spring.mvc.dao.BaseDAO;
 import com.spring.mvc.dao.functioncode.FunctionCodeDAO;
-import com.spring.mvc.dao.rolefunctioncode.RoleFunctionCodeDAO;
 import com.spring.mvc.domain.FunctionCodes;
 import com.spring.mvc.domain.Role;
 import com.spring.mvc.domain.UserRole;
-import com.spring.mvc.rowmapper.FunctionCodeRowMapper;
 import com.spring.mvc.services.userrole.UserRoleService;
 
 @Service
@@ -46,7 +41,8 @@ public class RoleFunctionCodeServiceImpl extends BaseDAO implements RoleFunction
 			query += " ;";
 		}
 		System.out.println(query);
-		return getJdbcTemplate().queryForList(query,String.class);
+		return getJdbcTemplate().queryForList(query, String.class);
 	}
+	
 	
 }

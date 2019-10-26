@@ -4,15 +4,15 @@
 </c:if>
 <c:if test="${sessionScope.userId != null} }">
 	User Found
-	<c:forEach var="item" items="${sessionScope.rolelist}">
-		<c:if test="${request.getContextPath() != item}">
+	<c:forEach items="${rolelist}" var="accessurl">
+		<c:if test="${request.getContextPath() != accessurl}">
 			No Match
 		</c:if>
-		<c:if test="${request.getContextPath() == item}">
+		<c:if test="${request.getContextPath() == accessurl}">
 			Match
 		</c:if>
 	 <tr>
-	   <td>Item : <c:out value="${item}" /></td>
+	   <td>Item : <c:out value="${accessurl}" /></td>
 	 </tr>
 	</c:forEach>
 </c:if>

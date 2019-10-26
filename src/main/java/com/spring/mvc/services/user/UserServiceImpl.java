@@ -1,6 +1,7 @@
 package com.spring.mvc.services.user;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,13 @@ public class UserServiceImpl extends BaseDAO implements UserService{
 	public void register(User user) {
 		usrdao.save(user);
 	}
+	
+	@Override
+	public List<User> findAll(){
+		return usrdao.findAll();
+	}
+	
+	
+	
 
 }

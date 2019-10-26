@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.mvc.dao.*;
 import com.spring.mvc.domain.User;
+import com.spring.mvc.rowmapper.UserRowMapper;
 
 
 @Repository
@@ -65,7 +66,10 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
 	@Override
 	public List<User> findAll() {
 		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT 	componentId, username, fname, lname, email, password, status, createdate, updatedate  FROM sysadmintool.user ";
+		List<User> usr = getJdbcTemplate().query(sql, new UserRowMapper());
+		System.out.println("user list size " + usr.size());
+		return usr;
 	}
 
 }

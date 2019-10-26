@@ -15,13 +15,26 @@
     <body>
 
 
-                   
-    <form:form method="POST" action = "/mvc/login"	>
-		<form:input path="loginName"/>
-		<form:input path="password" />
- 		<input type="submit" value="Submit" name="action" />
-      </form:form>
-
-
+ 	<div class="container">
+ 		<div class="row">          
+    	<div class="col-md-2"></div>
+		   <div class="col-md-10">
+		  	<div class="test">
+		  		<div class="row">
+		  		<h1>Welcome to the Sys Admin Tool</h1>
+		  		</br>
+		  		</div>
+		  		<div class="row">
+		    <form:form method="POST" action = "/mvc/login"	>
+				<h3>Username : </h3><form:input path="loginName"/></br>
+				<h3>Password : </h3><form:input path="password" type="password" /></br></br>
+		 		<input type="submit" value="Submit" name="action" />
+		      </form:form>
+		      </div>
+		  </div>
+		   </div>
+    	
+	</div>
+</div>
     </body>
 </html>

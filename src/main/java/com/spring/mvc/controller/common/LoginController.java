@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,41 +43,40 @@ public class LoginController {
 	User usr;
     
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(@ModelAttribute("command") LoginCommand cmd, Model m, HttpSession session){
+	public ModelAndView login(@ModelAttribute("command") LoginCommand cmd, Model m, HttpSession session, ModelMap mm){
 		try {
-			System.out.println("Before getting User " + cmd.getLoginName() + " " + cmd.getPassword());
+			System.out.println("User Authentication Request Recieved " + cmd.getLoginName() + " " + cmd.getPassword());
 			User user = usrservice.Login(cmd.getLoginName(), cmd.getPassword());
 			if(user == null) {
 				System.out.println("User is null");
-				return "home";
+				return new ModelAndView("home");
 			} else {
 				System.out.println("User Found! User Id " + user.getComponentId() + " Getting User RoleList");
 				List<UserRole> roleidlist = usrrolesrv.getUserRoleIdList(user.getComponentId());
 				System.out.println("Getting User FunctionCodeList");
 				List<String> rolelist = rfcs.getRoleFunctionCodeList(roleidlist);
 				System.out.println("Got FunctionCode List. Adding to session");
-				addUserInSession(user, rolelist, session);
-				return "common/dashboard";
+				this.addUserInSession(user, rolelist, session);
+				return  new ModelAndView("redirect:/dashboard");
 			}
 		} catch (UserBlockedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "home";
+			return  new ModelAndView("redirect:/home");
 		}
 	}
 	
-	
-	
 	@RequestMapping(value="/logout")
-	public ModelAndView logout(HttpServletResponse response) throws IOException{
-		return new ModelAndView("common/home");
+	public ModelAndView logout(HttpServletResponse response, HttpSession session) throws IOException{
+		System.out.println("User Logged Out. Unsetting the user session");
+		session.invalidate();
+		return new ModelAndView("redirect:/");
 	}
 	
-	
-    private void addUserInSession(User u, List<String> rolelist, HttpSession session) {
+    private void addUserInSession(User u,List<String> listoffunctions, HttpSession session) {
         session.setAttribute("user", u);
         session.setAttribute("userId", u.getComponentId());
-        session.setAttribute("permissions", rolelist);
+        session.setAttribute("rolefunclist", listoffunctions);
     }
 	
 }

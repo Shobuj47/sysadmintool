@@ -3,9 +3,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>User Add Modify</title>
-</head>
-<body>
-User Add Modify
+<title>Users Add Modify</title>	
+	
+	
+	<jsp:include page="../includes/header.jsp"></jsp:include>		 		
+
 </body>
 </html>
