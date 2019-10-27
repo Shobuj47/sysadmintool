@@ -317,15 +317,7 @@ body{
 
 </style>
 
-
-
-
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <div class="hamburger">
-            <div class="cta">
-                <div class="toggle-btn type14"></div>
-            </div>
-        </div>
 
         <!-- Brand/logo -->
         <a class="navbar-brand" href="#">
@@ -344,22 +336,16 @@ body{
     </nav>
 
 	<div class="row">
-		<div class="col-md-3">
-    <section class="side-bar-warp">
-        <div class="sidebar-menu full-side-bar">
-            <nav class="">
-				
-                <ul class="navbar-nav">
+            <nav class="navbar navbar-dark bg-dark">
+                <ul class="nav flex-column	">
                    <c:forEach items="${sessionScope.rolefunclist}" var="accessurl">
 	                    <li class="nav-item">
 	                        <a class="nav-link" href="/mvc/${accessurl}">
-	                        <span class="fadeInRight ">${accessurl}</span>
+	                       ${accessurl}
 	                        </a>
 	                    </li>
                     </c:forEach>
                 </ul>
             </nav>
-        </div>
-    </section>
+
     
-    </div>
