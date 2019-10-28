@@ -14,9 +14,9 @@ import com.spring.mvc.dao.BaseDAO;
 public class PamServiceImpl extends BaseDAO implements PamService{
 
 	@Override
-	public String changePassword(String host, Integer port, String sudouser, String password, String user,
-			String newpasswd) {
+	public String changePassword(String host, int port, String sudouser, String password, String user, String newpasswd) {
 		String command1="echo \""+ newpasswd +"\n"+newpasswd+"\" | sudo passwd "+ user;
+		System.out.println(command1);
 	    try{
 	    	
 	    	java.util.Properties config = new java.util.Properties(); 

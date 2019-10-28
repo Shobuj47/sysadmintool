@@ -17,13 +17,16 @@ public class PwdVaultServiceImpl  extends BaseDAO implements PwdVaultService{
 
 	@Autowired
 	PwdVaultUserService pwdvaultusersrv;
+	@Autowired
 	PwdvaultDAO pwdvaultdao;
+	@Autowired
 	PamService pamsrv;
+	
 	
 	@Override
 	public List<Pwdvault> getUserPAMServer(Integer userid) {
 		List<Integer> pwdvaultservers = pwdvaultusersrv.getPwdVaultList(userid);
-		String sql = "SELECT 	componentId, displayname, serveraddr, username, password, createdate, updatedate, createdby, updatedby FROM sysadmintool.pwdvault where ";
+		String sql = "SELECT 	componentId, displayname, serveraddr, port, username, password, createdate, updatedate, createdby, updatedby FROM sysadmintool.pwdvault where ";
 		int i = 0;
 		for (int pwdvaultserver : pwdvaultservers) {
 			if (i == 0) {
@@ -39,9 +42,11 @@ public class PwdVaultServiceImpl  extends BaseDAO implements PwdVaultService{
 	
 	@Override
 	public String resetPassword(int serverId, String usr, String newpassword) {
-		Pwdvault pwd;
-		pwd = pwdvaultdao.findById(serverId);
-		String changeResult = pamsrv.changePassword(pwd.getServeraddr(), 22, pwd.getUsername(), pwd.getPassword(), usr, newpassword);
+		System.out.println(serverId + " " + usr + " " + newpassword);
+		Pwdvault pwd = pwdvaultdao.findById(serverId);
+		int port = 22;
+		System.out.println(pwd.getServeraddr() + " Port: " +  pwd.getPort() + " username " + pwd.getUsername() +" Password "+ pwd.getPassword() + " resetuser " + usr+ " resetpass" +newpassword);
+		String changeResult = pamsrv.changePassword(pwd.getServeraddr(), port, pwd.getUsername(), pwd.getPassword(), usr, newpassword);
 		System.out.println(changeResult);
 		return changeResult;
 	}

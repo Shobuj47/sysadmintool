@@ -1,5 +1,6 @@
 package com.spring.mvc.dao.pwdvault;
 
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,9 +22,6 @@ import com.spring.mvc.services.pam.PamService;
 @Repository
 public class PwdvaultDAOImpl extends BaseDAO implements PwdvaultDAO {
 
-
-	
-	
 	@Override
 	public void save(Pwdvault pwdvault) {
 		String sql = "INSERT INTO sysadmintool.pwdvault ( displayname, serveraddr, username, password, createdate, updatedate, createdby, updatedby)"
@@ -75,8 +73,11 @@ public class PwdvaultDAOImpl extends BaseDAO implements PwdvaultDAO {
 
 	@Override
 	public Pwdvault findById(int id) {
-		String sql = "SELECT 	componentId, displayname, serveraddr, username, password, createdate, updatedate, createdby, updatedby FROM sysadmintool.pwdvault where componentId = ?";
-		return getJdbcTemplate().queryForObject(sql, new PwdvaultRowMapper(), id);
+		System.out.println("Pwsdvault -> findById -> :   " + id);
+		String sql = "SELECT 	componentId, displayname, serveraddr, port, username, password, createdate, updatedate, createdby, updatedby FROM sysadmintool.pwdvault where componentId = "+ id;
+		System.out.println("Pwsdvault -> findById :   " + sql);
+		Pwdvault pwdvault = getJdbcTemplate().queryForObject(sql, new PwdvaultRowMapper());
+		return pwdvault;
 	}
 	
 

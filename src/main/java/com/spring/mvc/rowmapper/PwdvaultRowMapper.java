@@ -15,6 +15,7 @@ public class PwdvaultRowMapper implements RowMapper<Pwdvault>{
 		pwdvault.setComponentId(rs.getInt("componentId"));
 		pwdvault.setDisplayname(rs.getString("displayname"));
 		pwdvault.setServeraddr(rs.getString("serveraddr"));
+		pwdvault.setPort(rs.getInt("port"));
 		pwdvault.setUsername(rs.getString("username"));
 		pwdvault.setPassword(rs.getString("password"));
 		pwdvault.setCreatedate(rs.getDate("createdate"));

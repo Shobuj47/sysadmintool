@@ -7,6 +7,7 @@ public class Pwdvault {
 	 private Integer componentId;
 	 private String displayname;
 	 private String serveraddr;
+	 private Integer port;
 	 private String username;
 	 private String password;
 	 private Date createdate;
@@ -34,6 +35,12 @@ public class Pwdvault {
 	}
 	public void setServeraddr(String serveraddr) {
 		this.serveraddr = serveraddr;
+	}
+	public Integer getPort() {
+		return port;
+	}
+	public void setPort(Integer port) {
+		this.port = port;
 	}
 	public String getUsername() {
 		return username;
