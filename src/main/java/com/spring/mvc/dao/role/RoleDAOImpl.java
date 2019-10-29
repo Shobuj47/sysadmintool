@@ -57,8 +57,14 @@ public class RoleDAOImpl extends BaseDAO implements RoleDAO{
 
 	@Override
 	public List<Role> findAll() {
-		String sql = "SELECT 	componentId, rolename, displayname, status FROM sysadmintool.role";
-		return getJdbcTemplate().query(sql, new RoleRowMapper());
+		String sql = "SELECT componentId, rolename, displayname, status FROM sysadmintool.role";
+		List<Role> rolelist = getJdbcTemplate().query(sql, new RoleRowMapper());
+		System.out.println(sql);
+		System.out.println("Total Available Roles " + rolelist.size() + " Printing Display Names from findall into dao");
+		for (Role r1 : rolelist){
+			System.out.println(r1.getDisplayname());
+		}
+		return rolelist;
 	}
 
 }

@@ -12,11 +12,11 @@ public class RoleRowMapper implements RowMapper<Role>{
 	@Override
 	public Role mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Role role = new Role();
-		role.setComponentId(rs.getInt("componentid"));
-		role.setDisplayname(rs.getString("displayname"));
+		role.setComponentId(rs.getInt("componentId"));
 		role.setRolename(rs.getString("rolename"));
+		role.setDisplayname(rs.getString("displayname"));
 		role.setStatus(rs.getByte("status"));
-		return null;
+		return role;
 	}
 
 	

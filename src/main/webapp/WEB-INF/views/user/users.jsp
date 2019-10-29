@@ -13,7 +13,7 @@
 				<div class="row py-md-3">
 					<nav class="navbar navbar-expand-lg navbar-light bg-light" style="width:100%">
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
-							<ul class="navbar-nav mr-auto">
+							<ul class="navbar-nav mr-auto" id="data-grid-ctrl">
 							      <li class="nav-item bg-warning">
 							        <a class="nav-link" href="#">Modify User<span class="sr-only">(current)</span></a>
 							      </li>
@@ -38,7 +38,7 @@
 				      <th scope="col">Last Name</th>
 				      <th scope="col">Email</th>
 				      <th scope="col">Status</th>
-				      <th><input name="select_all" value="1" id="example-select-all" type="checkbox" /></th>
+				     <th scope="col">Select User</th>
 				    </tr>
 				  </thead>
 				  <tbody>	
@@ -57,7 +57,7 @@
 							      <td>${usr.lname}</td>
 							      <td>${usr.email}</td>
 							      <td>${usr.status}</td>
-							      <td><input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"></td>
+							      <td><input type="radio" name="ss" onclick="showDataGridCtrl()" value="${usr.componentId}" /></td>
 							</tr>
 				    		</c:forEach>
 				    		
@@ -92,7 +92,14 @@
 	</div>
 
 
+<script>
+$("#data-grid-ctrl").hide();
 
+function showDataGridCtrl(){
+	$("#data-grid-ctrl").show();
+}
+
+</script>
 
 
 </body>
