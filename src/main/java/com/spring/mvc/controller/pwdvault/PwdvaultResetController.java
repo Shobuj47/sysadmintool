@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.mvc.command.common.LoginCommand;
 import com.spring.mvc.command.pwdvault.ResetServerPasswordCommand;
-import com.spring.mvc.services.pam.PamService;
 import com.spring.mvc.services.pam.PamServiceImpl;
-import com.spring.mvc.services.pwdvault.PwdVaultService;
 import com.spring.mvc.services.pwdvault.PwdVaultServiceImpl;
 
 @Controller

@@ -50,6 +50,36 @@ public class PwdVaultServiceImpl  extends BaseDAO implements PwdVaultService{
 		System.out.println(changeResult);
 		return changeResult;
 	}
+
+	@Override
+	public void save(Pwdvault pwdvault) {
+		pwdvaultdao.save(pwdvault);
+	}
+
+	@Override
+	public void update(Pwdvault pwdvault) {
+		pwdvaultdao.update(pwdvault);
+	}
+
+	@Override
+	public void delete(int pwdvaultId) {
+		pwdvaultdao.delete(pwdvaultId);
+	}
+
+	@Override
+	public Pwdvault findById(int id) {
+		return pwdvaultdao.findById(id);
+	}
+
+	@Override
+	public List<Pwdvault> findByProperty(String searchobj, Object searchparam) {
+		return pwdvaultdao.findByProperty(searchobj, searchparam);
+	}
+
+	@Override
+	public List<Pwdvault> findAll() {
+		return pwdvaultdao.findAll();
+	}
 	
 	
 

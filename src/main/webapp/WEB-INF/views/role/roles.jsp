@@ -5,6 +5,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Role Search</title>
 	
@@ -20,14 +21,6 @@
 				<div class="row py-md-3">
 					<nav class="navbar navbar-expand-lg navbar-light bg-light" style="width:100%">
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
-							<ul class="navbar-nav mr-auto" id="data-grid-ctrl">
-							      <li class="nav-item bg-warning">
-							        <a class="nav-link" href="#">Modify Role<span class="sr-only">(current)</span></a>
-							      </li>
-							      <li class="nav-item bg-danger ml-md-2">
-							        <a class="nav-link" href="#">Delete Role</a>
-							      </li>
-						      </ul>
 						      <form class="form-inline my-2 my-lg-0">
 							      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 							      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -42,7 +35,7 @@
 				      <th scope="col">#</th>
 				      <th scope="col">Role Name</th>
 				      <th scope="col">Role Status</th>
-				      <th scope="col">Select Role</th>
+				      <th scope="col">Operation</th>
 				    </tr>
 				  </thead>
 				  <tbody>	
@@ -58,8 +51,15 @@
                     			  <th scope="row">${role.componentId}</th>
 							      <td>${role.displayname}</td>
 							      <td>${role.status}</td>
-							      <td><input type="radio" name="roleId" onclick="showDataGridCtrl()" value="${role.componentId}" /></td>
-							      
+							      <td>
+									<s:url var="url_edit" value="/rolesaddmodify">
+									<s:param name="roleId" value="${role.componentId}" />
+									</s:url>
+									<s:url var="url_delete" value="/rolesdelete">
+									<s:param name="roleId" value="${role.componentId}" />
+									</s:url>
+							        <a href="${url_edit}">Modify</a> | <a href="${url_delete}">Delete</a>
+							      </td>
 							</tr>
 				    		</c:forEach>
 				    		
@@ -93,15 +93,6 @@
 		</div>
 	</div>
 
-
-<script>
-$("#data-grid-ctrl").hide();
-
-function showDataGridCtrl(){
-	$("#data-grid-ctrl").show();
-}
-
-</script>
 
 
 </body>

@@ -4,24 +4,18 @@
 <head>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Users</title>
 	
 	<jsp:include page="../includes/header.jsp"></jsp:include>		 		
-	
+		
 			<div class="col-md-8 ml-md-2">
 				<div class="row py-md-3">
 					<nav class="navbar navbar-expand-lg navbar-light bg-light" style="width:100%">
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
-							<ul class="navbar-nav mr-auto" id="data-grid-ctrl">
-							      <li class="nav-item bg-warning">
-							        <a class="nav-link" href="#">Modify User<span class="sr-only">(current)</span></a>
-							      </li>
-							      <li class="nav-item bg-danger ml-md-2">
-							        <a class="nav-link" href="#">Delete Users</a>
-							      </li>
-						      </ul>
-						      <form class="form-inline my-2 my-lg-0">
+							  <form class="form-inline my-2 my-lg-0">
 							      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 							      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 							   </form>
@@ -38,7 +32,7 @@
 				      <th scope="col">Last Name</th>
 				      <th scope="col">Email</th>
 				      <th scope="col">Status</th>
-				     <th scope="col">Select User</th>
+				     <th scope="col">Operation</th>
 				    </tr>
 				  </thead>
 				  <tbody>	
@@ -57,7 +51,15 @@
 							      <td>${usr.lname}</td>
 							      <td>${usr.email}</td>
 							      <td>${usr.status}</td>
-							      <td><input type="radio" name="ss" onclick="showDataGridCtrl()" value="${usr.componentId}" /></td>
+							      <td>
+									<s:url var="url_edit" value="/useraddmodify">
+									<s:param name="userId" value="${usr.componentId}" />
+									</s:url>
+									<s:url var="url_delete" value="/userdelete">
+									<s:param name="userId" value="${usr.componentId}" />
+									</s:url>
+							        <a href="${url_edit}">Modify</a> | <a href="${url_delete}">Delete</a>
+							      </td>
 							</tr>
 				    		</c:forEach>
 				    		
@@ -90,17 +92,6 @@
 				
 		</div>
 	</div>
-
-
-<script>
-$("#data-grid-ctrl").hide();
-
-function showDataGridCtrl(){
-	$("#data-grid-ctrl").show();
-}
-
-</script>
-
 
 </body>
 </html>

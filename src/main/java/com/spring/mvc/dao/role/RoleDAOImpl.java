@@ -20,7 +20,7 @@ public class RoleDAOImpl extends BaseDAO implements RoleDAO{
 	@Override
 	public void save(Role role) {
 		String sql = "INSERT INTO sysadmintool.role (rolename, displayname, status) VALUES"
-				+ "(?,?,?)";
+				+ "(:rolename, :displayname, :status)";
 		Map m = new HashMap();
 		m.put("rolename", role.getRolename());
 		m.put("displayname", role.getDisplayname());
@@ -36,6 +36,7 @@ public class RoleDAOImpl extends BaseDAO implements RoleDAO{
 	public void update(Role role) {
 		String sql = "UPDATE sysadmintool.role SET rolename = :rolename, displayname = :displayname, status = :status  WHERE componentId = :componentId ;";
 		Map m = new HashMap();
+		m.put("componentId", role.getComponentId());
         m.put("rolename", role.getRolename());
         m.put("displayname", role.getDisplayname());
         m.put("status", role.getStatus());
@@ -65,6 +66,13 @@ public class RoleDAOImpl extends BaseDAO implements RoleDAO{
 			System.out.println(r1.getDisplayname());
 		}
 		return rolelist;
+	}
+
+	@Override
+	public Role findById(Integer componentId) {
+		System.out.println(" RoleDAOImpl : findById " + componentId);
+		String sql = "SELECT componentId, rolename, displayname, status FROM sysadmintool.role where componentid = ?";
+		return getJdbcTemplate().queryForObject(sql, new RoleRowMapper(), componentId);
 	}
 
 }

@@ -18,32 +18,33 @@ public class RoleServiceImpl extends BaseDAO implements RoleService{
 	
 	@Override
 	public void save(Role role) {
-		// TODO Auto-generated method stub
-		
+		roledao.save(role);
 	}
 
 	@Override
 	public void update(Role role) {
-		// TODO Auto-generated method stub
-		
+		roledao.update(role);
 	}
 
 	@Override
-	public void delete(int roleId) {
-		// TODO Auto-generated method stub
-		
+	public void delete(Role roleId) {
+		roledao.delete(roleId.getComponentId());
 	}
 
 	@Override
 	public List<Role> findByProperty(String searchobj, Object searchparam) {
-		// TODO Auto-generated method stub
-		return null;
+		return roledao.findByProperty(searchobj, searchparam);
 	}
 
 	@Override
 	public List<Role> findAll() {
-		// TODO Auto-generated method stub
 		return roledao.findAll();
+	}
+
+	@Override
+	public Role findById(Integer componentId) {
+		System.out.println(" RoleServiceImpl : findById " + componentId);
+		return roledao.findById(componentId);
 	}
 
 }

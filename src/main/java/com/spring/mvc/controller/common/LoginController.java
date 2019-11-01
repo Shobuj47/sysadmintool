@@ -16,13 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.mvc.command.common.FunctionCodesCommand;
 import com.spring.mvc.command.common.LoginCommand;
-import com.spring.mvc.dao.functioncode.FunctionCodeDAO;
-import com.spring.mvc.dao.role.RoleDAO;
-import com.spring.mvc.domain.FunctionCodes;
-import com.spring.mvc.domain.Role;
-import com.spring.mvc.domain.RoleFunctionCodes;
 import com.spring.mvc.domain.User;
 import com.spring.mvc.domain.UserRole;
 import com.spring.mvc.exception.UserBlockedException;

@@ -1,5 +1,6 @@
 package com.spring.mvc.services.user;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,10 @@ public class UserServiceImpl extends BaseDAO implements UserService{
 
 	@Autowired
 	private UserDAO usrdao;
+	
+	
+	
+	
 	
 	@Override
 	public User Login(String username, String password) throws UserBlockedException {
@@ -47,6 +52,43 @@ public class UserServiceImpl extends BaseDAO implements UserService{
 	@Override
 	public List<User> findAll(){
 		return usrdao.findAll();
+	}
+
+	@Override
+	public void save(User user) {
+		System.out.println("UserServiceImpl Service");
+		if (user != null) {
+			System.out.println("UserServiceImpl Service : User is not null saving the user");
+			usrdao.save(user);	
+		}else {
+			System.out.println("UserServiceImpl Service : User is Null. Unable to save");
+		}
+	}
+
+	@Override
+	public void update(User user) {
+		java.sql.Timestamp getdatetime = new java.sql.Timestamp(new java.util.Date().getTime());
+		if(user.getStatus() == null) {
+			user.setStatus((byte) 1);
+		}
+		user.setUpdatedate(getdatetime);
+		usrdao.update(user);
+	}
+
+	@Override
+	public void delete(Integer userId) {
+		usrdao.delete(userId);
+	}
+
+	@Override
+	public List<User> findByProperty(String searchobj, Object searchparam) {
+		return usrdao.findByProperty(searchobj, searchparam);
+	}
+
+	@Override
+	public User findById(int componentId) {
+		System.out.println("UserServiceImpl Service : findById = userid : "+ componentId);
+		return usrdao.findById(componentId);
 	}
 	
 	

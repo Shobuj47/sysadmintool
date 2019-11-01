@@ -4,6 +4,7 @@
 <head>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Servers</title>
@@ -22,12 +23,6 @@
 					<nav class="navbar navbar-expand-lg navbar-light bg-light" style="width:100%">
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav mr-auto" id="data-grid-ctrl">
-							      <li class="nav-item bg-warning">
-							        <a class="nav-link" href="#">Modify Server<span class="sr-only">(current)</span></a>
-							      </li>
-							      <li class="nav-item bg-danger ml-md-2">
-							        <a class="nav-link" href="#">Delete Server</a>
-							      </li>
 							      <li class="nav-item btn-info ml-md-2 disabled" data-toggle="modal" data-target="#changePassword" onclick="addServerId()" >
 							        <a class="nav-link" href="#">Reset Password</a>
 							      </li>
@@ -52,6 +47,7 @@
 				      <th scope="col">Server Port</th>
 				      <th scope="col">User Name</th>
 				      <th scope="col">Select Server</th>
+				      <th scope="col">Operation</th>
 				    </tr>
 				  </thead>
 				  <tbody id="tbldata">	
@@ -64,12 +60,21 @@
 	                 	<c:if test="${pamserverlist != null}">
 	                 	    <c:forEach var="serverlist" items="${pamserverlist}" varStatus="st">
 	                 	    <tr>
-                    			  <th scope="row">${serverlist.componentId}</th>
+	                 	    	  <th><input type="radio" name="ss" onclick="showDataGridCtrl()" value="${serverlist.componentId}" /></td>
+                    			  <td scope="row">${serverlist.componentId}</th>
 							      <td>${serverlist.displayname}</td>
 							      <td>${serverlist.serveraddr}</td>
 							      <td>${serverlist.port}</td>
 							      <td>${serverlist.username}</td>
-							      <td><input type="radio" name="ss" onclick="showDataGridCtrl()" value="${serverlist.componentId}" /></td>
+								  <td>
+									<s:url var="url_edit" value="/pamserversaddmodify">
+									<s:param name="serverId" value="${serverlist.componentId}" />
+									</s:url>
+									<s:url var="url_delete" value="/pamserversdelete">
+									<s:param name="serverId" value="${serverlist.componentId}" />
+									</s:url>
+							        <a href="${url_edit}">Modify</a> | <a href="${url_delete}">Delete</a>
+							      </td>
 							</tr>
 				    		</c:forEach>
 				    		

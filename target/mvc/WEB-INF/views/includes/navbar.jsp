@@ -1,7 +1,6 @@
-			 		
-		<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>	 		
-			 		
+<%@taglib uri="http://www.springframework.org/tags" prefix="s" %>		 		
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -321,7 +320,8 @@ body{
 
         <!-- Brand/logo -->
         <a class="navbar-brand" href="#">
-    <img src="images/logo.png" alt="logo" style="width:140px;">
+        <s:url var="logo_bg" value="/resources/media/logo.png"/>
+    <img src="${logo_bg}" alt="logo" style="width:140px;">
   </a>
 
         <!-- Links -->
@@ -336,6 +336,7 @@ body{
     </nav>
 
 	<div class="row">
+		<div class="col-md-2">
             <nav class="navbar navbar-dark bg-dark">
                 <ul class="nav flex-column	">
                    <c:forEach items="${sessionScope.rolefunclist}" var="accessurl">
@@ -347,5 +348,5 @@ body{
                     </c:forEach>
                 </ul>
             </nav>
-
+		</div>
     

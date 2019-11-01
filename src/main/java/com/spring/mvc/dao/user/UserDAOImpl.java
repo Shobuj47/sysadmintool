@@ -21,10 +21,13 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
 
 	@Override
 	public void save(User user) {
+		
+		System.out.println("UserDaoImpl DAO");
+		
 		//User Object Insert SQL Statement
-		String sql = "INSERT INTO sysadmintool.user (componentId,  username,  fname,  lname,  email,  password,  status,  createdate,  updatedate ) "
-				+ "VALUES (:componentId,  :username,  :fname,  :lname,  :email,  :password,  :status,  :createdate,  :updatedate: );";
-
+		String sql = "INSERT INTO sysadmintool.user (username,  fname,  lname,  email,  password,  status, updatedate ) "
+				+ "VALUES (:username,  :fname,  :lname,  :email,  :password,  :status, :updatedate );";
+		System.out.println(sql);
 		//Map all User object information and SQL Parameter in array 
 		Map m = new HashMap();
 		m.put("username", user.getUsername());
@@ -33,7 +36,6 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
 		m.put("email", user.getEmail());
 		m.put("password", user.getPassword());
 		m.put("status", user.getStatus());
-		m.put("createdate", user.getCreatedate());
 		m.put("updatedate", user.getUpdatedate());
 
 		//Keyholder to hold the componentId after inserting new record into database
@@ -43,17 +45,36 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
 		//Execute SQL Query and hold the key into kh (KeyHolder)
 		super.getNamedParameterJdbcTemplate().update(sql, sqlparamsource, kh);
 		user.setComponentId(kh.getKey().intValue());
+		System.out.println("UserDaoImpl DAO : User Saved");
 	}
 
 	@Override
 	public void update(User user) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("UserDaoImpl DAO");
+		String sql = "UPDATE sysadmintool.user SET username = :username, fname = :fname, lname = :lname, email = :email, password = :password, status = :status, updatedate = :updatedate WHERE componentId = :componentId ;";
+		System.out.println(sql);
+		Map m = new HashMap();
+		m.put("componentId", user.getComponentId());
+		m.put("username", user.getUsername());
+		m.put("fname", user.getFname());
+		m.put("lname", user.getLname());
+		m.put("email", user.getEmail());
+		m.put("password", user.getPassword());
+		m.put("status", user.getStatus());
+		m.put("updatedate", user.getUpdatedate());
+		getNamedParameterJdbcTemplate().update(sql, m);
+		System.out.println("UserDaoImpl DAO : User Updated");
 	}
 
 	@Override
-	public void delete(User user) {
-		// TODO Auto-generated method stub
+	public void delete(Integer userId) {
+		System.out.println("UserDaoImpl DAO");
+		String sql = "DELETE FROM sysadmintool.user WHERE componentId = :componentId";
+		Map m = new HashMap();
+		m.put("componentId", userId);
+		System.out.println(sql);
+		getJdbcTemplate().update(sql, m);
+		System.out.println("UserDaoImpl DAO : User Deleted");
 		
 	}
 
@@ -70,6 +91,15 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
 		List<User> usr = getJdbcTemplate().query(sql, new UserRowMapper());
 		System.out.println("user list size " + usr.size());
 		return usr;
+	}
+
+	@Override
+	public User findById(int componentId) {
+		String sql = "SELECT 	componentId, username, fname, lname, email, password, status, createdate, updatedate  FROM sysadmintool.user where componentid = ?";
+		System.out.println("UserDAOImpl : findById = sql " + sql);
+		User u =  getJdbcTemplate().queryForObject(sql, new UserRowMapper(), componentId);
+		System.out.println("UserDAOImpl : returning User");
+		return u;
 	}
 
 }

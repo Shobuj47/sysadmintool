@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.mvc.command.pwdvault.ResetServerPasswordCommand;
 import com.spring.mvc.services.pwdvault.PwdVaultService;
-import com.spring.mvc.services.user.UserService;
 import com.spring.mvc.services.userrole.UserRoleService;
 
 @Controller

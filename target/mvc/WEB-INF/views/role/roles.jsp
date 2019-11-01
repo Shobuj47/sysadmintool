@@ -4,6 +4,8 @@
 <head>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Role Search</title>
 	
@@ -19,14 +21,6 @@
 				<div class="row py-md-3">
 					<nav class="navbar navbar-expand-lg navbar-light bg-light" style="width:100%">
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
-							<ul class="navbar-nav mr-auto">
-							      <li class="nav-item bg-warning">
-							        <a class="nav-link" href="#">Modify User<span class="sr-only">(current)</span></a>
-							      </li>
-							      <li class="nav-item bg-danger ml-md-2">
-							        <a class="nav-link" href="#">Delete Users</a>
-							      </li>
-						      </ul>
 						      <form class="form-inline my-2 my-lg-0">
 							      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 							      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -41,7 +35,7 @@
 				      <th scope="col">#</th>
 				      <th scope="col">Role Name</th>
 				      <th scope="col">Role Status</th>
-				      <th><input name="select_all" value="1" id="example-select-all" type="checkbox" /></th>
+				      <th scope="col">Operation</th>
 				    </tr>
 				  </thead>
 				  <tbody>	
@@ -52,12 +46,20 @@
                          </tr>
 	                 	</c:if>
 	                 	<c:if test="${roleslist != null}">
-	                 	    <c:forEach var="rr" items="${roleslist}" varStatus="st">
+	                 	    <c:forEach var="role" items="${roleslist}" varStatus="st">
 	                 	    <tr>
-                    			  <th scope="row">${rr.componentid}</th>
-							      <td>${rr.displayname}</td>
-							      <td>${rr.status}</td>
-							      <td><input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                    			  <th scope="row">${role.componentId}</th>
+							      <td>${role.displayname}</td>
+							      <td>${role.status}</td>
+							      <td>
+									<s:url var="url_edit" value="/rolesaddmodify">
+									<s:param name="roleId" value="${role.componentId}" />
+									</s:url>
+									<s:url var="url_delete" value="/rolesdelete">
+									<s:param name="roleId" value="${role.componentId}" />
+									</s:url>
+							        <a href="${url_edit}">Modify</a> | <a href="${url_delete}">Delete</a>
+							      </td>
 							</tr>
 				    		</c:forEach>
 				    		
@@ -90,8 +92,6 @@
 				
 		</div>
 	</div>
-
-
 
 
 

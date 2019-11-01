@@ -22,13 +22,12 @@ public class UserRoleDAOImpl extends BaseDAO implements UserRoleDAO {
 
 	@Override
 	public void save(UserRole userrole) {
-		String sql = "INSERT INTO sysadmintool.userrole (userid, roleid, status, createdate, updatedate ) "
-				+ "VALUES (:userid, :roleid, :status, :createdate, :updatedate );";
+		String sql = "INSERT INTO sysadmintool.userrole (userid, roleid, status, updatedate ) "
+				+ "VALUES (:userid, :roleid, :status, :updatedate );";
 		Map m = new HashMap();
 		m.put("userid", userrole.getUserid());
 		m.put("roleid", userrole.getRoleid());
 		m.put("status", userrole.getStatus());
-		m.put("createdate", userrole.getCreatedate());
 		m.put("updatedate", userrole.getUpdatedate());
 		
 		KeyHolder kh = new GeneratedKeyHolder();

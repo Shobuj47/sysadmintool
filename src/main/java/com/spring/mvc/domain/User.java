@@ -3,7 +3,7 @@ package com.spring.mvc.domain;
 import java.util.Date;
 
 public class User {
-	private int    componentId;
+	private Integer    componentId;
 	private String username;
 	private String fname;
 	private String lname;
@@ -14,10 +14,10 @@ public class User {
 	private Date updatedate;
 	
 	
-	public int getComponentId() {
+	public Integer getComponentId() {
 		return componentId;
 	}
-	public void setComponentId(int componentId) {
+	public void setComponentId(Integer componentId) {
 		this.componentId = componentId;
 	}
 	public String getUsername() {

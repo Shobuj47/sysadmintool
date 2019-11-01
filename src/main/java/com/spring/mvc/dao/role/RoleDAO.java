@@ -10,4 +10,5 @@ public interface RoleDAO {
 	public void delete(int roleId);
 	public List<Role> findByProperty(String searchobj, Object searchparam);
 	public List<Role> findAll();
+	public Role findById(Integer componentId);
 }

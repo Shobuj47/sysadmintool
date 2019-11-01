@@ -24,16 +24,14 @@ public class PwdvaultDAOImpl extends BaseDAO implements PwdvaultDAO {
 
 	@Override
 	public void save(Pwdvault pwdvault) {
-		String sql = "INSERT INTO sysadmintool.pwdvault ( displayname, serveraddr, username, password, createdate, updatedate, createdby, updatedby)"
-				+ "VALUES	( :displayname, :serveraddr, :username, :password, :createdate, :updatedate, :createdby, :updatedby );";
+		String sql = "INSERT INTO sysadmintool.pwdvault ( displayname, serveraddr, username, password, updatedate, createdby, updatedby)"
+				+ "VALUES	( :displayname, :serveraddr, :username, :password, :updatedate, :createdby, :updatedby );";
 		Map m = new HashMap();
 		m.put("displayname", pwdvault.getDisplayname());
 		m.put("serveraddr", pwdvault.getServeraddr());
 		m.put("username", pwdvault.getUsername());
 		m.put("password", pwdvault.getPassword());
-		m.put("createdate", pwdvault.getCreatedate());
 		m.put("updatedate", pwdvault.getUpdatedate());
-		m.put("createdby", pwdvault.getCreatedby());
 		m.put("updatedby", pwdvault.getUpdatedby());
 		//Keyholder to hold the componentId after inserting new record into database
 		KeyHolder kh = new GeneratedKeyHolder();
@@ -47,14 +45,22 @@ public class PwdvaultDAOImpl extends BaseDAO implements PwdvaultDAO {
 
 	@Override
 	public void update(Pwdvault pwdvault) {
-		// TODO Auto-generated method stub
-		
+		String sql = "UPDATE sysadmintool.pwdvault SET displayname = :displayname, serveraddr = :serveraddr, port = :port, username = :username, password = :password, updatedate = :updatedate, createdby = :createdby, updatedby = :updatedby WHERE componentId = :componentId";
+		Map m = new HashMap();
+		m.put("componentId", pwdvault.getComponentId());
+		m.put("displayname", pwdvault.getDisplayname());
+		m.put("serveraddr", pwdvault.getServeraddr());
+		m.put("username", pwdvault.getUsername());
+		m.put("password", pwdvault.getPassword());
+		m.put("updatedate", pwdvault.getUpdatedate());
+		m.put("updatedby", pwdvault.getUpdatedby());
+		getNamedParameterJdbcTemplate().update(sql, m);
 	}
 
 	@Override
-	public void delete(int pwdvault) {
-		// TODO Auto-generated method stub
-		
+	public void delete(int pwdvaultId) {
+		String sql = "DELETE FROM sysadmintool.pwdvault 	WHERE	componentId = :componentId ";	
+		getJdbcTemplate().update(sql, pwdvaultId);
 	}
 
 	@Override

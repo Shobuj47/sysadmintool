@@ -1,14 +1,14 @@
 package com.spring.mvc.domain;
 
 public class Role {
-	private int componentId;
+	private Integer componentId;
 	private	String rolename;
 	private	String displayname;
 	private Byte status;
-	public int getComponentId() {
+	public Integer getComponentId() {
 		return componentId;
 	}
-	public void setComponentId(int componentId) {
+	public void setComponentId(Integer componentId) {
 		this.componentId = componentId;
 	}
 	public String getRolename() {
