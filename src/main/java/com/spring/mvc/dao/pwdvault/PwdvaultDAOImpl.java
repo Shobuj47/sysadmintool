@@ -24,11 +24,12 @@ public class PwdvaultDAOImpl extends BaseDAO implements PwdvaultDAO {
 
 	@Override
 	public void save(Pwdvault pwdvault) {
-		String sql = "INSERT INTO sysadmintool.pwdvault ( displayname, serveraddr, username, password, updatedate, createdby, updatedby)"
-				+ "VALUES	( :displayname, :serveraddr, :username, :password, :updatedate, :createdby, :updatedby );";
+		String sql = "INSERT INTO sysadmintool.pwdvault ( displayname, serveraddr, port, username, password, updatedate, updatedby)"
+				+ "VALUES	( :displayname, :serveraddr, :port, :username, :password, :updatedate, :updatedby );";
 		Map m = new HashMap();
 		m.put("displayname", pwdvault.getDisplayname());
 		m.put("serveraddr", pwdvault.getServeraddr());
+		m.put("port", pwdvault.getPort());
 		m.put("username", pwdvault.getUsername());
 		m.put("password", pwdvault.getPassword());
 		m.put("updatedate", pwdvault.getUpdatedate());
@@ -45,44 +46,45 @@ public class PwdvaultDAOImpl extends BaseDAO implements PwdvaultDAO {
 
 	@Override
 	public void update(Pwdvault pwdvault) {
-		String sql = "UPDATE sysadmintool.pwdvault SET displayname = :displayname, serveraddr = :serveraddr, port = :port, username = :username, password = :password, updatedate = :updatedate, createdby = :createdby, updatedby = :updatedby WHERE componentId = :componentId";
+		String sql = "UPDATE sysadmintool.pwdvault SET displayname = :displayname, serveraddr = :serveraddr, port = :port, username = :username, password = :password, updatedate = :updatedate, updatedby = :updatedby WHERE componentId = :componentId";
 		Map m = new HashMap();
 		m.put("componentId", pwdvault.getComponentId());
 		m.put("displayname", pwdvault.getDisplayname());
 		m.put("serveraddr", pwdvault.getServeraddr());
+		m.put("port", pwdvault.getPort());
 		m.put("username", pwdvault.getUsername());
 		m.put("password", pwdvault.getPassword());
 		m.put("updatedate", pwdvault.getUpdatedate());
 		m.put("updatedby", pwdvault.getUpdatedby());
 		getNamedParameterJdbcTemplate().update(sql, m);
-	}
+	}	
 
 	@Override
-	public void delete(int pwdvaultId) {
-		String sql = "DELETE FROM sysadmintool.pwdvault 	WHERE	componentId = :componentId ";	
+	public void delete(Integer pwdvaultId) {
+		String sql = "DELETE FROM sysadmintool.pwdvault 	WHERE	componentId = ? ";	
 		getJdbcTemplate().update(sql, pwdvaultId);
 	}
 
 	@Override
 	public List<Pwdvault> findByProperty(String searchobj, Object searchparam) {
-		String sql = "SELECT 	componentId, displayname, serveraddr, username, password, createdate, updatedate, createdby, updatedby FROM sysadmintool.pwdvault where " + searchobj +" = ?";
+		String sql = "SELECT 	componentId, displayname, serveraddr, username, password, createdate, updatedate, updatedby FROM sysadmintool.pwdvault where " + searchobj +" = ?";
 		List<Pwdvault> pwdvaultlist = getJdbcTemplate().query(sql, new PwdvaultRowMapper(), searchparam);
 		return pwdvaultlist;
 	}
 
 	@Override
 	public List<Pwdvault> findAll() {
-		String sql = "SELECT 	componentId, displayname, serveraddr, username, password, createdate, updatedate, createdby, updatedby FROM sysadmintool.pwdvault ";
+		String sql = "SELECT 	componentId, displayname, serveraddr, username, password, createdate, updatedate, updatedby FROM sysadmintool.pwdvault ";
 		List<Pwdvault> pwdvaultlist = getJdbcTemplate().query(sql, new PwdvaultRowMapper());
 		return pwdvaultlist;
 	}
 
 	@Override
-	public Pwdvault findById(int id) {
-		System.out.println("Pwsdvault -> findById -> :   " + id);
-		String sql = "SELECT 	componentId, displayname, serveraddr, port, username, password, createdate, updatedate, createdby, updatedby FROM sysadmintool.pwdvault where componentId = "+ id;
-		System.out.println("Pwsdvault -> findById :   " + sql);
-		Pwdvault pwdvault = getJdbcTemplate().queryForObject(sql, new PwdvaultRowMapper());
+	public Pwdvault findById(Integer serverId) {
+		System.out.println("Pwsdvault -> findById -> :   " + serverId);
+		String sql = "SELECT 	componentId, displayname, serveraddr, port, username, password, createdate, updatedate, updatedby FROM sysadmintool.pwdvault where componentId = ?";
+		System.out.println("Pwsdvault -> findById :   " + serverId);
+		Pwdvault pwdvault = getJdbcTemplate().queryForObject(sql, new PwdvaultRowMapper(), serverId);
 		return pwdvault;
 	}
 	

@@ -12,7 +12,6 @@ public class Pwdvault {
 	 private String password;
 	 private Date createdate;
 	 private Date updatedate;
-	 private Integer createdby;
 	 private Integer updatedby;
 	 
 	 
@@ -65,12 +64,6 @@ public class Pwdvault {
 	}
 	public void setUpdatedate(Date updatedate) {
 		this.updatedate = updatedate;
-	}
-	public Integer getCreatedby() {
-		return createdby;
-	}
-	public void setCreatedby(Integer createdby) {
-		this.createdby = createdby;
 	}
 	public Integer getUpdatedby() {
 		return updatedby;

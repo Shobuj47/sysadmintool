@@ -15,6 +15,9 @@
 				<div class="row py-md-3">
 					<nav class="navbar navbar-expand-lg navbar-light bg-light" style="width:100%">
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
+							  <div class="nav-item btn-info mr-md-5">
+							   		<a class="nav-link" href="/mvc/useraddmodify">Add New User</a>
+							   </div>
 							  <form class="form-inline my-2 my-lg-0">
 							      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 							      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -50,7 +53,14 @@
 							      <td>${usr.fname}</td>
 							      <td>${usr.lname}</td>
 							      <td>${usr.email}</td>
-							      <td>${usr.status}</td>
+							      <td>
+							      <c:if test="${usr.status == 1}">
+							      	Enabled
+							      </c:if>
+							      <c:if test="${usr.status == 0}">
+							      	Disabled
+							      </c:if>
+							      </td>
 							      <td>
 									<s:url var="url_edit" value="/useraddmodify">
 									<s:param name="userId" value="${usr.componentId}" />

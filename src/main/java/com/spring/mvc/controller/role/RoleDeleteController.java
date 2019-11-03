@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.mvc.domain.Role;
@@ -30,20 +31,19 @@ public class RoleDeleteController {
 	
 
 	@RequestMapping(value="/rolesdelete")
-	public ModelAndView deleteRoles(@ModelAttribute("role") Role role,HttpServletResponse response,  HttpSession session, Model m) throws IOException{
-		String accessurl = "rolesaddmodify";
-		System.out.println("Starting getRolesAddModify Controller");
+	public ModelAndView deleteRoles(@RequestParam(value = "roleId", required = true) Integer roleId,HttpServletResponse response,  HttpSession session, Model m) throws IOException{
+		String accessurl = "rolesdelete";
+		System.out.println("Starting RoleDelete Controller");
 		if(usersrv.validateAccess((List<String>) session.getAttribute("rolefunclist"), accessurl)) {
 			System.out.println("User Have Access in "+accessurl+" Controller");
-			if (role.getComponentId() !=  null) {		//Existing Role
-				System.out.println("Existing Role Detected! Deleting roleId " + role.getComponentId());
-				rolesrv.delete(role);
+			if (roleId !=  null) {		//Existing Role
+				System.out.println("Existing Role Detected! Deleting roleId " + roleId);
+				rolesrv.delete(roleId);
 			}else {										// New Role
 				System.out.println("No roleId Detected Adding New Role");
-				rolesrv.save(role);
 			}
 			
-			return new ModelAndView("role/"+accessurl);
+			return new ModelAndView("redirect:/roles");
 		}
 		System.out.println("User Dosen't Have Access in Dashboard Controller");
 		return new ModelAndView("redirect:/error");

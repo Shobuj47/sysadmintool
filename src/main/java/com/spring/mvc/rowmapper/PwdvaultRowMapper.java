@@ -20,7 +20,6 @@ public class PwdvaultRowMapper implements RowMapper<Pwdvault>{
 		pwdvault.setPassword(rs.getString("password"));
 		pwdvault.setCreatedate(rs.getDate("createdate"));
 		pwdvault.setUpdatedate(rs.getDate("updatedate"));
-		pwdvault.setCreatedby(rs.getInt("createdby"));
 		pwdvault.setUpdatedby(rs.getInt("updatedby"));
 		return pwdvault;
 	}

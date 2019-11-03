@@ -50,7 +50,16 @@
 	                 	    <tr>
                     			  <th scope="row">${role.componentId}</th>
 							      <td>${role.displayname}</td>
-							      <td>${role.status}</td>
+							      <td>
+							      <c:if test="${role.status == 1}">
+							      	Enabled
+							      </c:if>
+							      <c:if test="${role.status == 0}">
+							      	Disabled
+							      </c:if>
+							      
+							      
+							      </td>
 							      <td>
 									<s:url var="url_edit" value="/rolesaddmodify">
 									<s:param name="roleId" value="${role.componentId}" />

@@ -29,13 +29,13 @@ public class UserDeleteController {
 	
 	//Passed
 	@RequestMapping(value="/userdelete")
-	public ModelAndView userSave(@RequestParam(value = "userId", required = true) Integer usrid, HttpServletResponse response,  HttpSession session, Model m) throws IOException{
+	public ModelAndView userDelete(@RequestParam(value = "userId", required = true) Integer usrid, HttpServletResponse response,  HttpSession session, Model m) throws IOException{
 		String accessurl = "userdelete";
-		System.out.println("Starting postUserAddModify Controller");
+		System.out.println("Starting UserDelete Controller");
 		if(usersrv.validateAccess((List<String>) session.getAttribute("rolefunclist"), accessurl)) {
-			System.out.println("User Have Access in postUserAddModify Controller user/"+accessurl);
+			System.out.println("User Have Access in userDelete Controller user/"+accessurl);
 			if (usrid != null) {						// Then new User
-				System.out.println("postUserAddModify controller : updating username " + usrid);
+				System.out.println("userDelete controller : updating username " + usrid);
 				usrsrv.delete(usrid);
 				return new ModelAndView("redirect:/users");
 			}

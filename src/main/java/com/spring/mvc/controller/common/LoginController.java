@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.mvc.command.common.LoginCommand;
+import com.spring.mvc.domain.FunctionCodes;
 import com.spring.mvc.domain.User;
 import com.spring.mvc.domain.UserRole;
 import com.spring.mvc.exception.UserBlockedException;
@@ -49,8 +50,9 @@ public class LoginController {
 				List<UserRole> roleidlist = usrrolesrv.getUserRoleIdList(user.getComponentId());
 				System.out.println("Getting User FunctionCodeList");
 				List<String> rolelist = rfcs.getRoleFunctionCodeList(roleidlist);
+				List<FunctionCodes> navbarlist = rfcs.getNavBarItems(roleidlist);
 				System.out.println("Got FunctionCode List. Adding to session");
-				this.addUserInSession(user, rolelist, session);
+				this.addUserInSession(user, rolelist,navbarlist, session);
 				return  new ModelAndView("redirect:/dashboard");
 			}
 		} catch (UserBlockedException e) {
@@ -67,10 +69,12 @@ public class LoginController {
 		return new ModelAndView("redirect:/");
 	}
 	
-    private void addUserInSession(User u,List<String> listoffunctions, HttpSession session) {
+    private void addUserInSession(User u,List<String> listoffunctions, List<FunctionCodes> navbarlist, HttpSession session) {
         session.setAttribute("user", u);
         session.setAttribute("userId", u.getComponentId());
         session.setAttribute("rolefunclist", listoffunctions);
+        session.setAttribute("navbarlist", navbarlist);
+        
     }
 	
 }

@@ -26,7 +26,7 @@ public class PwdVaultServiceImpl  extends BaseDAO implements PwdVaultService{
 	@Override
 	public List<Pwdvault> getUserPAMServer(Integer userid) {
 		List<Integer> pwdvaultservers = pwdvaultusersrv.getPwdVaultList(userid);
-		String sql = "SELECT 	componentId, displayname, serveraddr, port, username, password, createdate, updatedate, createdby, updatedby FROM sysadmintool.pwdvault where ";
+		String sql = "SELECT 	componentId, displayname, serveraddr, port, username, password, createdate, updatedate, updatedby FROM sysadmintool.pwdvault where ";
 		int i = 0;
 		for (int pwdvaultserver : pwdvaultservers) {
 			if (i == 0) {
@@ -41,7 +41,7 @@ public class PwdVaultServiceImpl  extends BaseDAO implements PwdVaultService{
 	}
 	
 	@Override
-	public String resetPassword(int serverId, String usr, String newpassword) {
+	public String resetPassword(Integer serverId, String usr, String newpassword) {
 		System.out.println(serverId + " " + usr + " " + newpassword);
 		Pwdvault pwd = pwdvaultdao.findById(serverId);
 		int port = 22;
@@ -51,6 +51,18 @@ public class PwdVaultServiceImpl  extends BaseDAO implements PwdVaultService{
 		return changeResult;
 	}
 
+	@Override
+	public String unlockPassword(Integer serverId, String usr) {
+		System.out.println(serverId + " " + usr );
+		Pwdvault pwd = pwdvaultdao.findById(serverId);
+		System.out.println(pwd.getServeraddr() + " Port: " +  pwd.getPort() + " username " + pwd.getUsername() +" Password "+ pwd.getPassword() + " resetuser " + usr+ " resetpass");
+		String changeResult = pamsrv.unlockUser(pwd.getServeraddr(), pwd.getPort() , pwd.getUsername(), pwd.getPassword(), usr);
+		System.out.println(changeResult);
+		return changeResult;
+	}
+	
+	
+	
 	@Override
 	public void save(Pwdvault pwdvault) {
 		pwdvaultdao.save(pwdvault);
@@ -62,12 +74,12 @@ public class PwdVaultServiceImpl  extends BaseDAO implements PwdVaultService{
 	}
 
 	@Override
-	public void delete(int pwdvaultId) {
+	public void delete(Integer pwdvaultId) {
 		pwdvaultdao.delete(pwdvaultId);
 	}
 
 	@Override
-	public Pwdvault findById(int id) {
+	public Pwdvault findById(Integer id) {
 		return pwdvaultdao.findById(id);
 	}
 

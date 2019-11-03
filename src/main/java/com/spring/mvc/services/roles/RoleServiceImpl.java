@@ -27,8 +27,8 @@ public class RoleServiceImpl extends BaseDAO implements RoleService{
 	}
 
 	@Override
-	public void delete(Role roleId) {
-		roledao.delete(roleId.getComponentId());
+	public void delete(Integer roleId) {
+		roledao.delete(roleId);
 	}
 
 	@Override

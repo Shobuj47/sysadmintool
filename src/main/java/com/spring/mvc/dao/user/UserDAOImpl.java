@@ -69,11 +69,8 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
 	@Override
 	public void delete(Integer userId) {
 		System.out.println("UserDaoImpl DAO");
-		String sql = "DELETE FROM sysadmintool.user WHERE componentId = :componentId";
-		Map m = new HashMap();
-		m.put("componentId", userId);
-		System.out.println(sql);
-		getJdbcTemplate().update(sql, m);
+		String sql = "DELETE FROM sysadmintool.user WHERE componentId = ?";
+		getJdbcTemplate().update(sql, userId);
 		System.out.println("UserDaoImpl DAO : User Deleted");
 		
 	}

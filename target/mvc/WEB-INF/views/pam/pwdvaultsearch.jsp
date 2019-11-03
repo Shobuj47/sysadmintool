@@ -23,10 +23,10 @@
 					<nav class="navbar navbar-expand-lg navbar-light bg-light" style="width:100%">
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav mr-auto" id="data-grid-ctrl">
-							      <li class="nav-item btn-info ml-md-2 disabled" data-toggle="modal" data-target="#changePassword" onclick="addServerId()" >
+							      <li class="nav-item btn-info ml-md-2" data-toggle="modal" data-target="#changePassword" onclick="addServerId()" >
 							        <a class="nav-link" href="#">Reset Password</a>
 							      </li>
-    							  <li class="nav-item btn-info ml-md-2" data-toggle="modal" data-target="#unlockUser">
+    							  <li class="nav-item btn-info ml-md-2" data-toggle="modal" data-target="#unlockUser" onclick="addServerId()">
 							        	<a class="nav-link" href="#">Unlock User</a>
 							      </li>
 						      </ul>
@@ -41,12 +41,12 @@
 				<table class="table table-dark" >
 				  <thead>
 				    <tr>
+				      <th scope="col"></th>
 				      <th scope="col">#</th>
 				      <th scope="col">Server Name</th>
 				      <th scope="col">Server Address</th>
 				      <th scope="col">Server Port</th>
 				      <th scope="col">User Name</th>
-				      <th scope="col">Select Server</th>
 				      <th scope="col">Operation</th>
 				    </tr>
 				  </thead>
@@ -118,9 +118,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      
-        
-	        <div class="modal-body">
+           <div class="modal-body">
 		          <div class="form-group">
 
                    
@@ -138,6 +136,44 @@
     </div>
   </div>
 </div>
+
+
+
+
+<div class="modal fade" id="unlockUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reset User </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+           <div class="modal-body">
+		          <div class="form-group">
+
+                   
+            <form:form method="POST" id="serverList" action = "/mvc/pamunlockserver"	modelAttribute="serverinfocmd">
+           		<form:input path="serverId" id="srvId" hidden="true" /></br>
+				<form:input path="username" class="form-control" placeholder="Username"/></br>
+		 		<input type="submit" class="btn btn-primary" value="Submit" name="action" />
+		 		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		     </form:form> 
+                   
+                   
+		          </div>
+	          </div>      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
 
 
 

@@ -13,11 +13,11 @@ public class FunctionCodeRowMapper  implements RowMapper<FunctionCodes>{
 	@Override
 	public FunctionCodes mapRow(ResultSet rs, int rowNum) throws SQLException {
 		FunctionCodes fc = new FunctionCodes();
-		fc.setComponentId(rs.getInt("componentid"));
+		fc.setComponentId(rs.getInt("componentId"));
 		fc.setDisplayname(rs.getString("displayname"));
 		fc.setFunctioncode(rs.getString("functioncode"));
 		fc.setCreatedate(rs.getDate("createdate"));
-		return null;
+		return fc;
 	}
 	
 	

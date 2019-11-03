@@ -44,7 +44,7 @@ public class RoleDAOImpl extends BaseDAO implements RoleDAO{
 	}
 
 	@Override
-	public void delete(int roleId) {
+	public void delete(Integer roleId) {
 		String sql = "DELETE FROM sysadmintool.role WHERE componentId = ? ";
 		getJdbcTemplate().update(sql, roleId);
 		

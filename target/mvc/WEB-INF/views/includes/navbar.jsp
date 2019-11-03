@@ -7,42 +7,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
-<script>
-
-
-// $(document).ready(function () {
-//     $(document).on('click', '.cta', function () {
-//         $(this).toggleClass('active')
-//     })
-// });
-
-
-// $(document).ready(function(){
-//     $(".hamburger").click(function(){
-//         $('.sidebar-menu').removeClass("flowHide");  
-//         $(".sidebar-menu").toggleClass("full-side-bar");
-//         $('.nav-link-name').toggleClass('name-hide');        
-//     });
-// });
-
-
-
-
-
-//  $(document).ready(function () {    
-//       $(".nav-link").hover(function () {           
-//           $('.sidebar-menu').removeClass("flowHide");  
-//           $(this).addClass('tax-active');
-              
-//       }, function () {
-//           $('.sidebar-menu')
-//              .addClass("flowHide");
-//           $(this).removeClass('tax-active');
-             
-//       });    
-//   }); 
-</script>
-
 <style>
 @font-face {
     font-family: 'TitilliumWeb';
@@ -339,10 +303,10 @@ body{
 		<div class="col-md-2">
             <nav class="navbar navbar-dark bg-dark">
                 <ul class="nav flex-column	">
-                   <c:forEach items="${sessionScope.rolefunclist}" var="accessurl">
+                   <c:forEach items="${sessionScope.navbarlist}" var="navbaritem">
 	                    <li class="nav-item">
-	                        <a class="nav-link" href="/mvc/${accessurl}">
-	                       ${accessurl}
+	                        <a class="nav-link" href="/mvc/${navbaritem.functioncode}">
+	                       ${navbaritem.displayname}
 	                        </a>
 	                    </li>
                     </c:forEach>
