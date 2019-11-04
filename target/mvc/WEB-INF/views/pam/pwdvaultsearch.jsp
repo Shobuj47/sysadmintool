@@ -123,7 +123,7 @@
 
                    
             <form:form method="POST" id="serverList" action = "/mvc/pamresetserver"	modelAttribute="serverinfocmd">
-           		<form:input path="serverId" id="srvId" hidden="true" /></br>
+           		<form:input path="serverId" id="srvId1" hidden="true" /></br>
 				<form:input path="username" class="form-control" placeholder="Username"/></br>
 				<form:input path="password" type="password" class="form-control" placeholder="Password" /></br>
 		 		<input type="submit" class="btn btn-primary" value="Submit" name="action" />
@@ -154,7 +154,7 @@
 
                    
             <form:form method="POST" id="serverList" action = "/mvc/pamunlockserver"	modelAttribute="serverinfocmd">
-           		<form:input path="serverId" id="srvId" hidden="true" /></br>
+           		<form:input path="serverId" id="srvId2" hidden="true" /></br>
 				<form:input path="username" class="form-control" placeholder="Username"/></br>
 		 		<input type="submit" class="btn btn-primary" value="Submit" name="action" />
 		 		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -185,7 +185,8 @@ function addServerId() {
 	if (selected.length > 0) {
 	    selectedVal = selected.val();
 	}
-	  document.getElementById("srvId").value = selectedVal;
+	  document.getElementById("srvId1").value = selectedVal;
+	  document.getElementById("srvId2").value = selectedVal;
 	}
 
 

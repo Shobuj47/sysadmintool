@@ -12,6 +12,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.mvc.dao.functioncode.FunctionCodeDAO;
@@ -32,21 +34,60 @@ public class UserRoleController {
 	RoleService rolesrv;
 	
 	@Autowired
+	UserRoleService urs;
+	
+	@Autowired
 	UserService usrsrv;
 	
-
-	//Passed
+//	@RequestMapping(value="/userroles")
+//	public ModelAndView getUserRoleService(HttpServletResponse response,  HttpSession session, Model m) throws IOException{
+//		String accessurl = "userroles";
+//		System.out.println("Starting getUserRoleService Controller");
+//		if(urs.validateAccess((List<String>) session.getAttribute("rolefunclist"), accessurl)) {
+//			List<User> userlist = usrsrv.findAll();
+//			m.addAttribute("userlist", userlist);
+//			return new ModelAndView ("userrole/"+ accessurl);
+//		}
+//		return new ModelAndView("redirect:/error");
+//	}
+	
 	@RequestMapping(value="/userroles")
-	public ModelAndView Home(HttpServletResponse response,  HttpSession session, Model m) throws IOException{
-		
-		
-		List<Role> rolelist = rolesrv.findAll();
-		List<User> userlist = usrsrv.findAll();
-		
-		m.addAttribute("rolelist", rolelist);
-		m.addAttribute("userlist", userlist);
-		return new ModelAndView ("userrole/userrole");
+	public ModelAndView postUserRoles(@RequestParam(value = "usrId", required = false) Integer usrId, HttpServletResponse response,  HttpSession session, Model m) throws IOException{
+		String accessurl = "userroles";
+		System.out.println("Starting postUserRoles Controller");
+		if(urs.validateAccess((List<String>) session.getAttribute("rolefunclist"), accessurl)) {
+			if(usrId == null) {
+				usrId = (Integer) session.getAttribute("userId");
+			}
+			System.out.println("Getting Role List");
+			List<Role> rolelist = rolesrv.findAll();
+			System.out.println("Getting Role List by specified id " + usrId);
+			List<Role> userrolelist = urs.getUserRoles(usrId);
+			System.out.println("Getting all User List");
+			List<User> userlist = usrsrv.findAll();
+			
+			m.addAttribute("rolelist", rolelist);
+			m.addAttribute("userlist", userlist);
+			m.addAttribute("userrolelist", userrolelist);
+			m.addAttribute("defaultusr", usrId);
+			System.out.println("Returning View " + accessurl);
+			return new ModelAndView ("userrole/" + accessurl);
+		}
+		return new ModelAndView("redirect:/error");
 	}
 	
+	
+	
+	@RequestMapping(value="/saveuserroles")
+	public ModelAndView saveUserRoleService(HttpServletResponse response,  HttpSession session, Model m) throws IOException{
+		String accessurl = "saveuserroles";
+		System.out.println("Starting saveUserRoleService Controller");
+		if(urs.validateAccess((List<String>) session.getAttribute("rolefunclist"), accessurl)) {
+			List<User> userlist = usrsrv.findAll();
+			m.addAttribute("userlist", userlist);
+			return new ModelAndView ("userrole/userrole");
+		}
+		return new ModelAndView("redirect:/" + accessurl);
+	}
 	
 }

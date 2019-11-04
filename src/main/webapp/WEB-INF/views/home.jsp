@@ -28,7 +28,7 @@
 		    <form:form method="POST" action = "/mvc/login"	>
 				<h3>Username : </h3><form:input path="loginName"/></br>
 				<h3>Password : </h3><form:input path="password" type="password" /></br></br>
-		 		<input type="submit" value="Submit" name="action" />
+		 		<input type="submit" value="Login" name="action" />
 		      </form:form>
 		      </div>
 		  </div>

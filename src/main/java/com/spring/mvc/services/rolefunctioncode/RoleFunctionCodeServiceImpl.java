@@ -34,7 +34,7 @@ public class RoleFunctionCodeServiceImpl extends BaseDAO implements RoleFunction
 	//Return a list of distinct url list from given list of roleid
 	@Override
 	public List<String> getRoleFunctionCodeList(List<UserRole> roles){
-		String query = "SELECT DISTINCT functioncode FROM `functioncodes` AS fc LEFT JOIN `rolefunctioncodes` rfc ON fc.`componentId` = rfc.`funcid` WHERE ";
+		String query = "SELECT DISTINCT functioncode FROM `functioncodes` AS fc LEFT JOIN `rolefunctioncodes` rfc ON fc.`componentId` = rfc.`funcid` WHERE  ";
 		System.out.println("Role Array Size " + roles.size());
 		for (int i = 0; i < roles.size();i++) {
 			if (i == 0) {

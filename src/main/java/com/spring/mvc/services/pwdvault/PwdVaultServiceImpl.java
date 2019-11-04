@@ -26,18 +26,22 @@ public class PwdVaultServiceImpl  extends BaseDAO implements PwdVaultService{
 	@Override
 	public List<Pwdvault> getUserPAMServer(Integer userid) {
 		List<Integer> pwdvaultservers = pwdvaultusersrv.getPwdVaultList(userid);
-		String sql = "SELECT 	componentId, displayname, serveraddr, port, username, password, createdate, updatedate, updatedby FROM sysadmintool.pwdvault where ";
 		int i = 0;
-		for (int pwdvaultserver : pwdvaultservers) {
-			if (i == 0) {
-				sql += " componentId = " + pwdvaultserver;
-			} else {
-				sql += " OR componentId = " + pwdvaultserver;
+		if(pwdvaultservers.size() > 0) {
+			String sql = "SELECT 	componentId, displayname, serveraddr, port, username, password, createdate, updatedate, updatedby FROM sysadmintool.pwdvault where ";
+			for (int pwdvaultserver : pwdvaultservers) {
+				if (i == 0) {
+					sql += "  componentId = " + pwdvaultserver;
+				} else {
+					sql += " OR componentId = " + pwdvaultserver;
+				}
+				i++;
 			}
-			i++;
+			System.out.println("pwdvaultserver size : " + pwdvaultservers.size()+ " getUserPAMServer sql : " + sql);
+			List<Pwdvault> pwdvaultlist = getJdbcTemplate().query(sql, new PwdvaultRowMapper());
+			return pwdvaultlist;
 		}
-		List<Pwdvault> pwdvaultlist = getJdbcTemplate().query(sql, new PwdvaultRowMapper());
-		return pwdvaultlist;
+		return null;
 	}
 	
 	@Override

@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.spring.mvc.dao.BaseDAO;
 import com.spring.mvc.dao.userrole.UserRoleDAO;
+import com.spring.mvc.domain.Role;
 import com.spring.mvc.domain.User;
 import com.spring.mvc.domain.UserRole;
+import com.spring.mvc.rowmapper.RoleRowMapper;
 import com.spring.mvc.rowmapper.UserRoleRowMapper;
 
 
@@ -33,7 +35,7 @@ public class UserRoleServiceImpl extends BaseDAO  implements UserRoleService{
 	}
 	
 	@Override
-	public List<UserRole> getUserRoleIdList(int userid){
+	public List<UserRole> getUserRoleIdList(Integer userid){
 		String sql = "SELECT 	DISTINCT roleid, componentId, userid, STATUS, createdate, updatedate FROM userrole WHERE userid = " + userid + " ORDER BY roleid ";
 		System.out.println("Query for getting user role     "+sql);
 		return getJdbcTemplate().query(sql, new UserRoleRowMapper());
@@ -49,6 +51,23 @@ public class UserRoleServiceImpl extends BaseDAO  implements UserRoleService{
 			}
 		}
 		return validation;
+	}
+
+	//Return a list of roles asociated with the given userid
+	@Override
+	public List<Role> getUserRoles(Integer userid) {
+		String sql = "SELECT DISTINCT roles.componentId,  roles.rolename,  roles.displayname,  roles.status FROM role AS roles LEFT JOIN userrole usrr ON roles.`componentId` = usrr.`roleid` WHERE ";
+		if(userid != null) {
+			sql += "usrr.userid = ?";
+			return  getJdbcTemplate().query(sql, new RoleRowMapper(), userid) ;
+		}
+		return null;
+	}
+
+	@Override
+	public List<Role> getUserRole(Integer userid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

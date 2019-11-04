@@ -60,7 +60,7 @@ public class PamServiceImpl extends BaseDAO implements PamService{
 
 	@Override
 	public String unlockUser(String host, int port, String sudouser, String password, String user) {
-		String command1="whoami";
+		String command1="usermod --unlock " + user;
 		System.out.println(command1);
 	    try{
 	    	
